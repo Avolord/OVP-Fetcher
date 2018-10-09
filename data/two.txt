@@ -1,0 +1,19 @@
+<div class="mon_title">9.10.2018 Dienstag, Woche B</div>
+<table class="mon_list" >
+<tr class='list'><th class="list" align="center" width='22'>Klasse(n)</th><th class="list" align="center" width='6'>Stunde</th><th class="list" align="center" width='5'>Fach</th><th class="list" align="center" width='6'>Raum</th><th class="list" align="center" width='12'>Art</th><th class="list" align="center">Vertretungs-Text</th></tr>
+<tr class='list odd'><td class="list" align="center">09A, 09B, 09D, 09C</td><td class="list" align="center">7</td><td class="list" align="center">---</td><td class="list" align="center">---</td><td class="list" align="center">Entfall</td><td class="list" align="center">Entfall</td></tr>
+<tr class='list even'><td class="list" align="center">09C</td><td class="list" align="center">1</td><td class="list" align="center">CH</td><td class="list" align="center">A113</td><td class="list" align="center">Vertretung</td><td class="list" align="center">Unterricht im Klassenraum; Bitte im eigenen Fach unterrichten.</td></tr>
+<tr class='list odd'><td class="list" align="center">EF</td><td class="list" align="center">3</td><td class="list" align="center">CH-G6</td><td class="list" align="center">N004</td><td class="list" align="center">Vertretung</td><td class="list" align="center">&nbsp;</td></tr>
+<tr class='list even'><td class="list" align="center">EF</td><td class="list" align="center">4</td><td class="list" align="center">CH-G6</td><td class="list" align="center">N004</td><td class="list" align="center">Aufgabe</td><td class="list" align="center">Aufgaben individuell bearbeiten</td></tr>
+<tr class='list odd'><td class="list" align="center">EF</td><td class="list" align="center">5 - 6</td><td class="list" align="center">PA-G3</td><td class="list" align="center">A218</td><td class="list" align="center">Vertretung</td><td class="list" align="center">&nbsp;</td></tr>
+<tr class='list even'><td class="list" align="center">EF</td><td class="list" align="center">6</td><td class="list" align="center">BI-G3a</td><td class="list" align="center">B106</td><td class="list" align="center">Vertretung</td><td class="list" align="center">&nbsp;</td></tr>
+<tr class='list odd'><td class="list" align="center">Q1</td><td class="list" align="center">1</td><td class="list" align="center">E-G5</td><td class="list" align="center">A213</td><td class="list" align="center">Vertretung</td><td class="list" align="center">&nbsp;</td></tr>
+<tr class='list even'><td class="list" align="center">Q1</td><td class="list" align="center">2</td><td class="list" align="center">E-G5</td><td class="list" align="center">A213</td><td class="list" align="center">Lehrertausch</td><td class="list" align="center">&nbsp;</td></tr>
+<tr class='list odd'><td class="list" align="center">Q2</td><td class="list" align="center">4</td><td class="list" align="center">ER-G9</td><td class="list" align="center">A207</td><td class="list" align="center">Aufgabe</td><td class="list" align="center">&nbsp;</td></tr>
+<tr class='list even'><td class="list" align="center">Q2</td><td class="list" align="center">4</td><td class="list" align="center">PL-G9</td><td class="list" align="center">A205</td><td class="list" align="center">Aufgabe</td><td class="list" align="center">Aufgaben individuell bearbeiten; 3. Std. findet statt!</td></tr>
+</table>
+<p>
+<font size="3" face="Arial">
+Periode2   9.10.2018 B   
+</body>
+</html>
