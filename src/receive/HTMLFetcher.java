@@ -13,6 +13,8 @@ import process.SubstitutionSchedule;
 import process.DataExtractor;
 
 public class HTMLFetcher {
+	private static boolean fetchOnInitialization = true;
+	
 	private URL url = null;
 	private InputStream istream = null;
 	private BufferedReader buffer = null;
@@ -24,12 +26,52 @@ public class HTMLFetcher {
 
 	public HTMLFetcher(String url) {
 		requiresAuthentication = false;
-		fetch(url);
+		if(fetchOnInitialization)
+			fetch(url);
+		else
+			try {
+				this.url = new URL(url);
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
 	}
 	
 	public HTMLFetcher(String url, String username, String password) {
 		setAuthentication(username, password);
-		fetch(url);
+		if(fetchOnInitialization)
+			fetch(url);
+		else
+			try {
+				this.url = new URL(url);
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+	}
+	
+	public final void fetch() {
+		try {
+			HttpURLConnection connection = (HttpURLConnection) this.url.openConnection();
+			
+			if (requiresAuthentication) {
+				connection.setRequestProperty("Authorization", "Basic "+Token);
+			}
+			
+			connection.connect();
+			System.out.println("RESPONSE CODE: " + connection.getResponseCode());
+			
+			if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+				// everything ok
+				istream = connection.getInputStream();
+				buffer = new BufferedReader(new InputStreamReader(istream));
+				// process stream
+			} else {
+				// possibly error
+			}
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public final void fetch(String url) {
@@ -93,6 +135,7 @@ public class HTMLFetcher {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		fetch();
 	}
 	
 	public void loadHTML(String Class) {
@@ -105,6 +148,14 @@ public class HTMLFetcher {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		fetch();
+	}
+	
+	public SubstitutionSchedule getSubstitutionSchedule() {
+		DataExtractor sort = new DataExtractor();
+		SubstitutionSchedule schedule = sort.extractInformation(buffer, wrapper);
+		fetch();
+		return schedule;
 	}
 	
 	private final String getToken() {

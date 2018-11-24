@@ -24,6 +24,15 @@ public class SubstitutionSchedule {
 	public ArrayList<String[]> getData() {
 		return data;
 	}
+	
+	public ArrayList<String[]> getData(String Identifier) {
+		ArrayList<String[]> result = new ArrayList<String[]>();
+		data.forEach(row -> {
+			if(Arrays.asList(row).contains(Identifier))
+				result.add(row);
+		});
+		return result;
+	}
 
 	public void setData(ArrayList<String[]> data) {
 		this.data = data;
