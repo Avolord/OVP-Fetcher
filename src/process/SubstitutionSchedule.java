@@ -1,6 +1,7 @@
 package process;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 
 public class SubstitutionSchedule {
 	private String title = "";
@@ -27,10 +28,12 @@ public class SubstitutionSchedule {
 	
 	public ArrayList<String[]> getData(String Identifier) {
 		ArrayList<String[]> result = new ArrayList<String[]>();
-		data.forEach(row -> {
+		Iterator<String[]> dataIterator = data.iterator();
+		while(dataIterator.hasNext()){
+			String[] row = dataIterator.next();
 			if(Arrays.asList(row).contains(Identifier))
 				result.add(row);
-		});
+		}
 		return result;
 	}
 
@@ -40,17 +43,27 @@ public class SubstitutionSchedule {
 	
 	public void log() {
 		System.out.println(title);
-		infos.forEach(x -> System.out.println(Arrays.toString(x)));
-		data.forEach(x -> System.out.println(Arrays.toString(x)));
+		Iterator<String[]> infoIterator = infos.iterator();
+		while(infoIterator.hasNext()){
+			String[] row = infoIterator.next();
+			System.out.println(Arrays.toString(row));
+		}
+		Iterator<String[]> dataIterator = data.iterator();
+		while(dataIterator.hasNext()){
+			String[] row = dataIterator.next();
+			System.out.println(Arrays.toString(row));
+		}
 		System.out.println("---------\n\n\n---------");
 	}
 	
 	public void log(String CLASS) {
 		System.out.println(title);
-		data.forEach(x -> {
-			if(x[0].equals(CLASS))
-				System.out.println(Arrays.toString(x));
-		});
+		Iterator<String[]> dataIterator = data.iterator();
+		while(dataIterator.hasNext()){
+			String[] row = dataIterator.next();
+			if(row[0].equals(CLASS))
+				System.out.println(Arrays.toString(row));
+		}
 		System.out.println("---------\n\n\n---------");
 	}
 
