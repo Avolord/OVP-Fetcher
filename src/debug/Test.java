@@ -5,7 +5,7 @@ import receive.HTMLFetcher;
 
 public class Test {
 	public static void main(String[] args) {
-		HTMLFetcher fetcher = new HTMLFetcher("url");
-		fetcher.loadHTML();
+		HTMLFetcher.initializeFetcher("http://rudolph-brandes-gymnasium.de/ovp/heute/subst_001.htm", "schueler", "Did1VP-PW");
+		HTMLFetcher.staticSchedule.log();
 	}
 }
