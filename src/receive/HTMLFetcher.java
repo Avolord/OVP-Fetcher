@@ -20,38 +20,6 @@ public class HTMLFetcher {
 	public static HTMLFetcher staticFetcher = null;
 	public static SubstitutionSchedule staticSchedule = null;
 
-	public static final void initializeFetcher(final String url, final String username, final String password) {
-		Thread thread = new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				try {
-					staticFetcher = new HTMLFetcher(url, username, password);
-					phase++;
-					if(staticFetcher != null)
-						System.out.println("static fetcher initialized!");
-					else
-						System.out.println("failed to initialize static fetcher");
-					staticSchedule = staticFetcher.getSubstitutionSchedule();
-					phase++;
-					if(staticSchedule != null)
-						System.out.println("static schedule initialized!");
-					else
-						System.out.println("failed to initialize static schedule");
-					System.out.println("Initialized!");
-					initialized = true;
-					phase++;
-				} catch (Exception e) {
-					e.printStackTrace();
-					System.out.println("ERROR in Phase: "+phase);
-				}
-			}
-			
-		});
-
-		thread.start();
-	}
-
 	private URL url = null;
 	private InputStream istream = null;
 	private BufferedReader buffer = null;
@@ -84,13 +52,55 @@ public class HTMLFetcher {
 				e.printStackTrace();
 			}
 	}
-	
-	public static ArrayList<String[]> getData(String Identifier) {
-        if(!initialized)
-            return null;
 
-        return staticSchedule.getData(Identifier);
-    }
+	public static final void initializeFetcher(final String url, final String username, final String password) {
+		Thread thread = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					phase++;
+					staticFetcher = new HTMLFetcher(url, username, password);
+					if (staticFetcher != null)
+						System.out.println("static fetcher initialized!");
+					else
+						System.out.println("failed to initialize static fetcher");
+
+					phase++;
+					if (fetchOnInitialization) {
+						staticSchedule = staticFetcher.getSubstitutionSchedule();
+					} else {
+						System.out.println(
+								"Due to 'fetchOnInitialization' being set to false HTMLFetcher has not fetched the requested site yet. Fetch it by using the fetch() method!");
+					}
+					if (staticSchedule != null)
+						System.out.println("static schedule initialized!");
+					else
+						System.out.println("failed to initialize static schedule");
+
+					phase++;
+					System.out.println("Initialized!");
+					initialized = true;
+					phase = 0;
+				} catch (Exception e) {
+					e.printStackTrace();
+					System.out.println("ERROR in Phase: " + phase);
+				}
+			}
+
+		});
+
+		thread.start();
+	}
+
+	public static ArrayList<String[]> getData(String Identifier) {
+		if (!initialized) {
+			System.out.println("The static fetcher has not been initialized yet!");
+			return null;
+		}
+
+		return staticSchedule.getData(Identifier);
+	}
 
 	public final void fetch() {
 		try {
@@ -108,11 +118,13 @@ public class HTMLFetcher {
 				buffer = new BufferedReader(new InputStreamReader(istream));
 				// process stream
 			} else {
-				System.out.println("RESPONSE CODE: " + connection.getResponseCode());
+				System.out.println("ERROR! RESPONSE CODE: " + connection.getResponseCode());
 			}
 		} catch (MalformedURLException e) {
+			System.out.println("The Url that was entered seems to be wrong or expired!");
 			e.printStackTrace();
 		} catch (IOException e) {
+			System.out.println("The fetching-process was unsuccessfull!");
 			e.printStackTrace();
 		}
 	}
@@ -134,11 +146,13 @@ public class HTMLFetcher {
 				buffer = new BufferedReader(new InputStreamReader(istream));
 				// process stream
 			} else {
-				System.out.println("RESPONSE CODE: " + connection.getResponseCode());
+				System.out.println("ERROR! RESPONSE CODE: " + connection.getResponseCode());
 			}
 		} catch (MalformedURLException e) {
+			System.out.println("The Url that was entered seems to be wrong or expired!");
 			e.printStackTrace();
 		} catch (IOException e) {
+			System.out.println("The fetching-process was unsuccessfull!");
 			e.printStackTrace();
 		}
 	}
@@ -167,7 +181,7 @@ public class HTMLFetcher {
 		requiresAuthentication = false;
 	}
 
-	public void loadHTML() {
+	public void logHTMLtoConsole() {
 		DataExtractor sort = new DataExtractor();
 		SubstitutionSchedule plan = sort.extractInformation(buffer, wrapper);
 		plan.log();
@@ -180,7 +194,7 @@ public class HTMLFetcher {
 		fetch();
 	}
 
-	public void loadHTML(String Class) {
+	public void logHTMLtoConsole(String Class) {
 		DataExtractor sort = new DataExtractor();
 		SubstitutionSchedule plan = sort.extractInformation(buffer, wrapper);
 		plan.log(Class);
